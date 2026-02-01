@@ -15,8 +15,11 @@ export default function LoginPage() {
         setLoading(true)
         setError(null)
 
+        // Allow username login by appending default domain
+        const finalEmail = email.includes('@') ? email : `${email}@agora.app`
+
         const { error } = await supabase.auth.signInWithPassword({
-            email,
+            email: finalEmail,
             password,
         })
 
@@ -54,14 +57,14 @@ export default function LoginPage() {
 
                 <form onSubmit={handleLogin} className="space-y-4">
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Usuario</label>
                         <input
-                            type="email"
+                            type="text"
                             required
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="w-full px-4 py-2 bg-white/50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all placeholder:text-gray-400"
-                            placeholder="nombre@escuela.edu.ar"
+                            placeholder="admin"
                         />
                     </div>
 
